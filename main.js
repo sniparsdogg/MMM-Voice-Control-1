@@ -1,6 +1,6 @@
-function get_zeit() {
+function get_time() {
 	var date = new Date();
- return_response("Es ist " + date.getHours().toString() + ":" + date.getMinutes().toString() + " Uhr.")
+ return_response("São " + date.getHours().toString() + ":" + date.getMinutes().toString() + " horas.")
 }
 
 function return_response(html) {
@@ -17,25 +17,19 @@ function hide_voicecontrol() {
 	$("#voice_control_block_view").fadeOut("slow")
 	
 }
-function chuck_norris() {
-	$.getJSON( "http://api.icndb.com/jokes/random", function( data ) {
-		return_response(data["value"]["joke"])
-		});
-}
 if (annyang) {
 	//Enable debug mode
 	annyang.debug();
-	// Set language to German, I will localise it some day (for english at least)
-	 annyang.setLanguage('de-DE');
+	// Set language to Portuguese, I will localise it some day (for english at least)
+	 annyang.setLanguage('pt-PT');
 	// Add voice commands to respond to
 	var commands = {
-		'hallo': function() {
-			return_response("Hallo!")
+		'ola': function() {
+			return_response("Olá!")
 		},
-		'(wie viel) uhr (ist es)': get_zeit,
-		'danke': hide_voicecontrol,
-		'(erzähle einen) chuck norris (witz)': chuck_norris,
-		'(was kann ich sagen) (hilfe)': function() {
+		'(Que) horas (sao)': get_time,
+		'obrigado': hide_voicecontrol,
+		'(Que posso dizer) (Ajuda)': function() {
 			return_response(Object.keys(commands).join(", "))
 		 },
 	};
@@ -45,7 +39,7 @@ if (annyang) {
 	
 	//Update latest command in UI
 	annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {
-		if (userSaid != "danke" ){
+		if (userSaid != "obrigado" ){
 			
 		if ($('#voice_control_ui').css('display') == "none"){
 			$("#voice_control_ui").fadeIn("slow")
